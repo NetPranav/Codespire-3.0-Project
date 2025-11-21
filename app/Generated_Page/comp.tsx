@@ -36,7 +36,7 @@ const Comp: React.FC = () => {
         className="flex items-center justify-between p-4 md:px-8 shadow-lg bg-gray-900"
       >
         {/* Logo/Brand Area */}
-        <div ref={logoRef} className="flex-shrink-0">
+        <div ref={logoRef} className="shrink-0">
           <a href="#" className="text-2xl font-bold text-indigo-400 hover:text-indigo-300 transition-colors duration-300">
             MyBrand
           </a>

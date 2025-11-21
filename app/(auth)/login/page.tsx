@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect,Suspense } from "react";
 import React from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -80,6 +80,7 @@ export default function Login() {
 
   return (
     <>
+      <Suspense fallback={<div className="flex justify-between items-center">Loading...</div>}>
       {/* Page Transition Overlay */}
       <div className={`fixed inset-0 z-50 pointer-events-none transition-all duration-600 ease-in-out ${
         isLeaving ? 'opacity-100 bg-black' : 'opacity-0'
@@ -290,6 +291,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      </Suspense>
     </>
   );
 }
