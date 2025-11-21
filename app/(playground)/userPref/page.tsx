@@ -4,7 +4,6 @@ import Goals from "@/components/goals";
 import Personality from "@/components/personality";
 import Topic from "@/components/topic";
 import { redirect } from "next/navigation";
-import Loading from './loading';
 
 export  default function UserPref() {
   // frames only carry identity and element; their visual position is driven by `positionStyles`
@@ -73,7 +72,6 @@ export  default function UserPref() {
 
   return (
     <div className={`h-full w-full`}>
-         <Loading/>
       <div className={`h-18 w-max`} id="topBar">
         <img src="/logo.png" alt="WebGen" className={`w-40 invert m-4`} />
       </div>
