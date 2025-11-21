@@ -49,7 +49,7 @@ export default function UserPref() {
   // Next: rotate left — the current largest (frames[0]) moves to end and becomes smallest; frames[1] becomes large.
   const [clickCount, setClickCount] = useState(0);
   function handleNext() {
-    setClickCount((c: number) => c++);
+    setClickCount((c: number) => c+=1);
 
     if (clickCount >= 4) {
       redirect("/template-Generator");
@@ -67,7 +67,7 @@ export default function UserPref() {
       if (prev.length <= 1) return prev;
       return [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)];
     });
-    setClickCount((c: number) => c++);
+    setClickCount((c: number) => c-=1);
   }
 
   return (
@@ -120,3 +120,4 @@ export default function UserPref() {
     </div>
   );
 }
+

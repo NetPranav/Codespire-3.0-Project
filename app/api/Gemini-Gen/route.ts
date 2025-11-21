@@ -1,17 +1,19 @@
 // app/api/generate/route.ts  (server-only)
-import { NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
+import { NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEN_API_KEY}); // server only
+const ai = new GoogleGenAI({ apiKey: process.env.GEN_API_KEY }); // server only
 
 export async function POST(req: Request) {
   try {
     const { code } = await req.json();
-    if (!code) return NextResponse.json({ error: 'Missing Code' }, { status: 400 });
+    if (!code)
+      return NextResponse.json({ error: "Missing Code" }, { status: 400 });
 
     const response = await ai.models.generateContent({
-    //   model: "gemini-3-pro-preview",
- model: "gemini-2.5-flash",
+      // model: "gemini-3-pro-preview",
+      // model: "gemini-3-pro-preview",
+      model: "gemini-2.5-flash",
       contents: code,
       config: {
         systemInstruction: ` 
@@ -62,7 +64,7 @@ remeber the format of output should be
 \`\`\` 
 next js code should be inside \`\`\` \`\`\` this quotes :
 
-        `
+        `,
         // thinkingConfig: { thinkingBudget: 0 },
       },
     });
@@ -70,6 +72,6 @@ next js code should be inside \`\`\` \`\`\` this quotes :
     return NextResponse.json({ tex: response.text });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
