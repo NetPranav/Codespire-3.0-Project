@@ -1,14 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { Bell } from "lucide-react";
 import SignOutButton from "./signOutButton";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
+
 
 export default function Navbar() {
   const { data: session, status } = useSession();
   const [showNotification, setShowNotification] = useState(false);
+  const [spotSize, setSpotSize] = useState('80px');
+  const [spotX, setSpotX] = useState('-80px');
+  const [spotY, setSpotY] = useState('50px')
+
+
+  const getRef = useRef<HTMLDivElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+    const getEle = getRef.current;
+    if(getEle){
+      getEle.addEventListener('mousemove',(e: MouseEvent)=>{
+        console.log("Happened")
+      })
+    }
+  },[])
+
 
   const router = useRouter();
 
@@ -22,13 +40,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (showNotification){
+      if (showNotification) {
         setShowNotification(false)
       }
     };
-    document.addEventListener('mousedown',handleClickOutside)
-    return () => document.removeEventListener('mousedown',handleClickOutside)
-  },[showNotification])
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [showNotification])
 
   useEffect(() => {
     if (session) {
@@ -46,14 +64,13 @@ export default function Navbar() {
         nav!.style.background = "transparent"; // Transparent at top
       }
     };
-    // done check kr
-    // n
 
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial call
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
 
   return (
     <nav
@@ -64,7 +81,7 @@ export default function Navbar() {
         className="h-full pl-[2%] w-[18%] flex justify-center items-center -mt-1"
         id="logo"
       >
-        <img src="/logo.png" alt="LazyLayout Logo" className="w-48"/>
+        <img src="/logo.png" alt="LazyLayout Logo" className="w-48" />
       </div>
       <div
         className="h-full w-[60%] flex justify-center gap-[25px]"
@@ -83,100 +100,113 @@ export default function Navbar() {
         </div>
       </div>
 
-{session && session?.user ? (
-  <>
-  <div className="h-full w-[8%]"></div>
-  <div className="h-full w-[10%] pr-[2%] flex items-center" id="signInUp"> {/* Changed from 18% to 5% */}
-    <div className="h-[full] w-full flex justify-center items-center"> {/* Changed width to full */}
-      <div className="flex justify-evenly items-center w-full h-full">
-        {/* Notification Panel  */}
-        <button className="p-2 text-white hover:bg-white- rounded-[50%] transisiton-colors duration-200 relative" onClick={handleNotificationClick}>
-          <Bell />
-          <span className="absolute top-0 right-1 w-2 h-2 bg-yellow-500 rounded-[50%]"></span>
-        </button>
+      {session && session?.user ? (
+        <>
+          <div className="h-full w-[8%]"></div>
+          <div className="h-full w-[10%] pr-[2%] flex items-center" id="signInUp"> {/* Changed from 18% to 5% */}
+            <div className="h-[full] w-full flex justify-center items-center"> {/* Changed width to full */}
+              <div className="flex justify-evenly items-center w-full h-full">
+                {/* Notification Panel  */}
+                <button className="p-2 text-white hover:bg-white- rounded-[50%] transisiton-colors duration-200 relative" onClick={handleNotificationClick}>
+                  <Bell />
+                  <span className="absolute top-0 right-1 w-2 h-2 bg-yellow-500 rounded-[50%]"></span>
+                </button>
 
 
-        {/* notification */}
-        {showNotification && (
-          <div id='' className=""></div>
-        )}
-        
+                {/* notification */}
+                {showNotification && (
+                  <div id='' className=""></div>
+                )}
 
 
 
-        {/* profile dropdown */}
-        <div className="relative group flex justify-center items-center ml-2">
-          <button className="hover:scale-105 duration transition-transform">
-            <div
-              id="User"
-              className="flex items-center rounded-lg font-medium text-sm text-black justify-center mx-2 bg-gray-200 h-13 w-13 border-2 border-white"
-            >
-              {session?.user?.image ? (
-                <img
-                  src={session?.user?.image}
-                  alt="Profile"
-                  className="h-full w-full object-cover rounded-lg"
-                />
-              ) : (
-                session?.user?.name?.charAt(0).toUpperCase() || "U"
-              )}
-            </div>
-          </button>
 
-          {/* DropDown Menu */}
-          <div className="absolute right-0 top-full mt-2 w-64 bg-black backdrop-blur-lg border border-gray-300 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-            <div className="p-4 border-b border-gray-300">
-              <div className="font-semibold text-white">
-                {session.user.name}
+                {/* profile dropdown */}
+                <div className="relative group flex justify-center items-center ml-2">
+                  <button className="hover:scale-105 duration transition-transform">
+                    <div
+                      id="User"
+                      className="flex items-center rounded-lg font-medium text-sm text-black justify-center mx-2 bg-gray-200 h-13 w-13 border-2 border-white"
+                    >
+                      {session?.user?.image ? (
+                        <img
+                          src={session?.user?.image}
+                          alt="Profile"
+                          className="h-full w-full object-cover rounded-lg"
+                        />
+                      ) : (
+                        session?.user?.name?.charAt(0).toUpperCase() || "U"
+                      )}
+                    </div>
+                  </button>
+
+                  {/* DropDown Menu */}
+                  <div className="absolute right-0 top-full mt-2 w-64 bg-black backdrop-blur-lg border border-gray-300 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="p-4 border-b border-gray-300">
+                      <div className="font-semibold text-white">
+                        {session.user.name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {session.user.email}
+                      </div>
+                    </div>
+                    <div className="p-2">
+                      <Link
+                        href="/community"
+                        className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        href="/community"
+                        className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
+                      >
+                        Community
+                      </Link>
+                      <Link
+                        href="/help"
+                        className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
+                      >
+                        Help Center
+                      </Link>
+                      <SignOutButton />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="text-sm text-gray-500">
-                {session.user.email}
-              </div>
-            </div>
-            <div className="p-2">
-              <Link
-                href="/community"
-                className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
-              >
-                Profile
-              </Link>
-              <Link
-                href="/community"
-                className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
-              >
-                Community
-              </Link>
-              <Link
-                href="/help"
-                className="flex items-center px-3 py-2 text-gray-100 hover:text-white hover:bg-gray-700 rounded-md transition-colors duration-200"
-              >
-                Help Center
-              </Link>
-              <SignOutButton />
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </>
-) : (
-  <div className="h-full w-[18%] pr-[2%] flex items-center" id="signInUp"> {/* Keep 18% when no session */}
-    <div className="h-[full] w-[50%] flex justify-center items-center">
-      <div className="flex justify-evenly items-center w-full h-full">
-        <button 
-        className=""
-        onClick={handleLogin}>Sign In</button>
-      <div className=" absolute right-2 flex justify-center items-center bg-white text-black whitespace-nowrap py-6 px-8">
-        GET STARTED
-      </div>
-      </div>
-      
-    </div>
-  </div>
-)}
+        </>
+      ) : (
+        <div className="h-full w-[18%] pr-[2%] flex items-center" id="signInUp"> {/* Keep 18% when no session */}
+          <div className="h-[full] w-[50%] flex justify-center items-center">
+            <div className="flex justify-evenly items-center w-full h-full">
+              <button
+                className=""
+                onClick={handleLogin}>Sign In</button>
+              <div
+              ref={getRef}
+                onClick={() => redirect("/userPref")}
+                className=" absolute right-2 flex justify-center items-center bg-white text-black py-5 px-8 cursor-pointer">
+                <p className="z-1" >GET STARTED</p>
+                <div
+              ref={spotRef}
+                style={{
+                  height: `${spotSize}`,
+                  aspectRatio: 1,
+                  left: `${spotX}`,
+                  top: `${spotY}`
+                }}
+                id="spot" className="absolute rounded-full bg-[white] transition-all duration-300 pointer-none"></div>
+            </div>
+          </div>
 
-        
-    </nav>
+        </div>
+        </div>
+  )
+}
+
+
+    </nav >
   );
 }
