@@ -73,7 +73,7 @@ export default function HeaderWORKS(){
     <div className="w-full flex justify-center z-10 relative">
       <h1 
         ref={headingRef}
-        className="text-4xl md:text-[50px] w-full px-4 md:w-[600px] mt-[80px] md:mt-[100px] mb-[40px] md:mb-[60px] text-white text-center font-bold leading-tight"
+        className="text-4xl md:text-[50px] w-full px-4 md:w-[600px] mt-[80px] md:mt-[100px] mb-[40px] md:mb-[60px] text-white text-center font-bold leading-tight select-none cursor-default"
       >
         How It Works?
       </h1>
