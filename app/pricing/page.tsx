@@ -1,7 +1,7 @@
 import React from 'react'
 import Pricing from '@/components/Pricing'
 
-function pricing() {
+function page() {
   return (
     <div>
       <Pricing />
@@ -9,4 +9,5 @@ function pricing() {
   )
 }
 
-export default pricing
+export default page
+

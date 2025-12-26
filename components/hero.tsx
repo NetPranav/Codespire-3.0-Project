@@ -7,6 +7,19 @@ export default function Hero() {
   const [top, setTop] = useState(50);
   const [opacity, setOpacity] = useState(0);
   const router = useRouter();
+  const [text, setText] = useState("");
+  
+  const handleGenerate = () => {
+    if (text.trim()) {
+      router.push(`/template-Generator?prompt=${encodeURIComponent(text)}`);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && text.trim()) {
+      handleGenerate();
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -58,6 +71,11 @@ export default function Hero() {
             border-none ring-0
           "
           type="text"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+          onKeyPress={handleKeyPress}
           placeholder="Describe your dream layout.. e.g. Modern portfolio"
         />
 
@@ -70,13 +88,15 @@ export default function Hero() {
             cursor-pointer rounded-lg 
             hover:bg-gray-200 transition-colors 
             whitespace-nowrap font-medium
+            disabled:opacity-50 disabled:cursor-not-allowed
           "
-          onClick={()=>router.push("/template-Generator")}
+          onClick={handleGenerate}
+          disabled={!text.trim()}
         >
           Generate
           <Wand2
             className="ml-2 w-5 h-5 md:w-6 md:h-6"
-            strokeWidth={2} // Adjusts line thickness
+            strokeWidth={2}
           />
         </button>
       </div>

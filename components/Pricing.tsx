@@ -1,87 +1,117 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 const Pricing = () => {
+  const [billing, setBilling] = useState("yearly");
+
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-16">
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-5">
+      {/* --- LOGO --- */}
+      <div className="flex items-center z-50">
+        <img
+          src="/logo.png"
+          alt="LazyLayout Logo"
+          className="w-32 md:w-40 object-contain opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
+
       {/* Heading */}
-      <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold">Pricing</h1>
-        <p className="text-gray-400 mt-3">
-          Choose the plan that fits your needs
+      <div className="text-center max-w-3xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold">
+          Smart Pricing That Grows <br className="hidden sm:block" />
+          Your Business
+        </h1>
+        <p className="text-gray-400 mt-4 text-sm sm:text-base">
+          Each plan offers essential tools with transparent pricing and no
+          hidden fees.
         </p>
-      </div>
 
-      {/* Pricing Cards */}
-      <div className="mt-14 grid gap-8 max-w-6xl mx-auto md:grid-cols-3">
-        {/* Basic Plan */}
-        <div className="border border-gray-800 rounded-2xl p-8 bg-gray-950 hover:border-white transition">
-          <h2 className="text-xl font-semibold">Basic</h2>
-          <p className="text-gray-400 mt-2">For individuals</p>
-
-          <p className="text-4xl font-bold mt-6">
-            ₹0 <span className="text-sm text-gray-400">/month</span>
-          </p>
-
-          <ul className="mt-6 space-y-3 text-gray-300 text-sm">
-            <li>✔ Limited Access</li>
-            <li>✔ Basic Support</li>
-            <li>✔ Community Help</li>
-          </ul>
-
-          <button className="mt-8 w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 transition">
-            Get Started
+        {/* Toggle */}
+        <div className="mt-6 inline-flex bg-gray-900 rounded-full p-1">
+          <button
+            onClick={() => setBilling("yearly")}
+            className={`px-6 py-2 text-sm rounded-full transition ${
+              billing === "yearly" ? "bg-white text-black" : "text-gray-400"
+            }`}
+          >
+            Yearly
           </button>
-        </div>
-
-        {/* Pro Plan (Highlighted) */}
-        <div className="border border-white rounded-2xl p-8 bg-gray-900 scale-105 shadow-xl">
-          <span className="text-xs bg-white text-black px-3 py-1 rounded-full">
-            Most Popular
-          </span>
-
-          <h2 className="text-xl font-semibold mt-4">Pro</h2>
-          <p className="text-gray-300 mt-2">For professionals</p>
-
-          <p className="text-4xl font-bold mt-6">
-            ₹999 <span className="text-sm text-gray-400">/month</span>
-          </p>
-
-          <ul className="mt-6 space-y-3 text-gray-200 text-sm">
-            <li>✔ Full Access</li>
-            <li>✔ Priority Support</li>
-            <li>✔ Advanced Tools</li>
-            <li>✔ Daily Updates</li>
-          </ul>
-
-          <button className="mt-8 w-full py-3 rounded-xl bg-white text-black font-medium hover:bg-gray-200 transition">
-            Upgrade Now
-          </button>
-        </div>
-
-        {/* Enterprise Plan */}
-        <div className="border border-gray-800 rounded-2xl p-8 bg-gray-950 hover:border-white transition">
-          <h2 className="text-xl font-semibold">Enterprise</h2>
-          <p className="text-gray-400 mt-2">For organizations</p>
-
-          <p className="text-4xl font-bold mt-6">Custom</p>
-
-          <ul className="mt-6 space-y-3 text-gray-300 text-sm">
-            <li>✔ Unlimited Access</li>
-            <li>✔ Dedicated Support</li>
-            <li>✔ Custom Features</li>
-            <li>✔ Team Management</li>
-          </ul>
-
-          <button className="mt-8 w-full py-3 rounded-xl bg-gray-800 hover:bg-gray-700 transition">
-            Contact Us
+          <button
+            onClick={() => setBilling("monthly")}
+            className={`px-6 py-2 text-sm rounded-full transition ${
+              billing === "monthly" ? "bg-white text-black" : "text-gray-400"
+            }`}
+          >
+            Monthly
           </button>
         </div>
       </div>
 
-      {/* Footer Note */}
-      <p className="text-center text-gray-500 text-sm mt-16">
-        © 2025 Raipura. Secure payments & transparent pricing.
-      </p>
+      {/* Cards */}
+      <div className=" w-full flex justify-center scale-80">
+        <div className="grid gap-12 grid-cols-1 lg:grid-cols-2 max-w-5xl w-full">
+          {/* Standard */}
+          <div className="relative rounded-3xl p-10 sm:p-12 min-h-[580px] bg-gradient-to-b from-purple-900/30 to-black border border-gray-800">
+            <h3 className="text-4xl font-semibold">Standard</h3>
+            <p className="text-gray-400 mt-3 text-base">
+              Organize transactions and reports
+            </p>
+
+            <p className="text-5xl font-bold mt-8">
+              ${billing === "yearly" ? "10" : "12"}
+              <span className="text-base text-gray-400"> /mo</span>
+            </p>
+
+            <button className="mt-8 w-full py-4 rounded-full border border-gray-600 hover:border-white transition">
+              Get Started
+            </button>
+
+            <ul className="mt-10 space-y-4 text-gray-300 text-xl">
+              <li>✔ Progress invoicing</li>
+              <li>✔ Connect bank feeds</li>
+              <li>✔ Expense tracking</li>
+              <li>✔ Custom reports</li>
+              <li>✔ Progress invoicing</li>
+              <li>✔ Connect bank feeds</li>
+              <li>✔ Expense tracking</li>
+              <li>✔ Custom reports</li>
+            </ul>
+          </div>
+
+          {/* Premium */}
+          <div className="relative rounded-3xl p-10 sm:p-12 min-h-[520px] bg-gradient-to-b from-blue-600/40 to-black border border-blue-500 shadow-2xl">
+            <span className="absolute top-6 right-6 text-xs bg-blue-600 px-4 py-1 rounded-full">
+              Most popular
+            </span>
+
+            <h3 className="text-4xl font-semibold">Premium</h3>
+            <p className="text-gray-300 mt-3 text-base">
+              Track projects and manage inventory
+            </p>
+
+            <p className="text-5xl font-bold mt-8">
+              ${billing === "yearly" ? "20" : "24"}
+              <span className="text-base text-gray-400"> /mo</span>
+            </p>
+
+            <button className="mt-8 w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 transition">
+              Get Started
+            </button>
+
+            <ul className="mt-10 space-y-4 text-xl text-gray-200">
+              <li>✔ Vendor bills & payments</li>
+              <li>✔ Sales & purchase orders</li>
+              <li>✔ Multi-currency support</li>
+              <li>✔ Workflow automation</li>
+
+              <li>✔ Vendor bills & payments</li>
+              <li>✔ Sales & purchase orders</li>
+              <li>✔ Multi-currency support</li>
+              <li>✔ Workflow automation</li> 
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

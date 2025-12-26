@@ -10,8 +10,14 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [showNotification, setShowNotification] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+ 
+  const navItems = [
+    { label: "Products", path: "/products" },
+  { label: "Template", path: "/Template" },
+  { label: "Pricing", path: "/pricing" },
+  ]
 
-  // --- RESTORED ORIGINAL BUTTON REFS & LOGIC ---
+
   const getBtn = useRef<HTMLDivElement>(null);
   const spotBg = useRef<HTMLDivElement>(null);
 
@@ -110,10 +116,14 @@ export default function Navbar() {
 
         {/* --- DESKTOP NAVIGATION --- */}
         <div className="hidden md:flex h-full items-center gap-12">
-          {["Products", "Resources", "Pricing"].map((item) => (
-            <div key={item} className="group relative cursor-pointer py-2">
+          {navItems.map((item) => (
+            <div key={item.label}
+            onClick={()=>{
+              router.push(item.path)
+            }}
+            className="group relative cursor-pointer py-2">
               <span className="text-sm font-medium text-white hover:text-white transition-colors tracking-wide">
-                {item.toUpperCase()}
+                {item.label.toUpperCase()}
               </span>
               <span className="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
             </div>
@@ -193,7 +203,7 @@ export default function Navbar() {
 
                 {[
                   { name: "Products", href: "#" }, 
-                  { name: "Resources", href: "#" },
+                  { name: "Template", href: "/Template" },
                   { name: "Pricing", href: "#" },
                   { name: "Community", href: "/community" }
                 ].map((item, i) => (
