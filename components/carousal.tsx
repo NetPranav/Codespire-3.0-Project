@@ -189,7 +189,7 @@ export default function Carousal() {
                   isActive ? 0 : 1
                 }px)`,
                 backgroundImage: `url(${bgImages[k]})`,
-                backgroundSize: "cover",
+                backgroundSize: "contain",
                 backgroundPosition: "top center",
               }}
             >

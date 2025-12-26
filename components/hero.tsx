@@ -1,9 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Wand2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
   const [top, setTop] = useState(50);
   const [opacity, setOpacity] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,8 +34,8 @@ export default function Hero() {
         - Added bg-white/5 and border for better visibility on dark backgrounds
         - Responsive: Stacked on mobile (flex-col), Row on desktop (md:flex-row)
       */}
-      <div 
-        id="example" 
+      <div
+        id="example"
         className="
           flex flex-col md:flex-row justify-center items-center gap-3 
           mt-4 md:mt-10 
@@ -57,7 +60,7 @@ export default function Hero() {
           type="text"
           placeholder="Describe your dream layout.. e.g. Modern portfolio"
         />
-        
+
         <button
           id="generate"
           className="
@@ -68,12 +71,12 @@ export default function Hero() {
             hover:bg-gray-200 transition-colors 
             whitespace-nowrap font-medium
           "
+          onClick={()=>router.push("/template-Generator")}
         >
           Generate
-          <img 
-            src="/fevicon.png" 
-            className="h-6 w-6 md:h-10 md:w-10 invert ml-2 md:ml-[25px] md:mr-[5px] object-contain" 
-            alt="icon" 
+          <Wand2
+            className="ml-2 w-5 h-5 md:w-6 md:h-6"
+            strokeWidth={2} // Adjusts line thickness
           />
         </button>
       </div>
@@ -81,7 +84,7 @@ export default function Hero() {
   );
 }
 
-
+//-----------------------------------------------------------------
 
 // "use client";
 // import { redirect } from "next/navigation";
@@ -96,12 +99,12 @@ export default function Hero() {
 //     setTimeout(()=>{
 //       setTop(0);
 //       setOpacity(1);
-//     },500)  
+//     },500)
 //   }, []);
 
 //   // const handleGetStartedButton = () => {redirect("/template-Generator")};
-//   return (       
-//     <div       
+//   return (
+//     <div
 //       style={{
 //         top: `${top}px`,
 //         opacity: `${opacity}`,
@@ -112,7 +115,7 @@ export default function Hero() {
 //         Just Type, and Watch It Come to Life.
 //       </h1>
 //       <div id="example" className="flex justify-center items-center gap-2 mt-10 shadow-[0px_0px_5px_rgba(255,255,255,0.5)] text-white p-3 rounded-lg backdrop-blur-[10px]">
-//         <input 
+//         <input
 //         className={`h-[50px] w-[40vw] p-4 text-lg rounded-lg focus:outline-none text-center`}
 //         type="text" placeholder="Describe your dream layout.. e g.. Modern portfolio for a photographer"/>
 //         <button
