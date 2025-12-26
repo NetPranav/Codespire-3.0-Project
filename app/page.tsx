@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import AnimatedSections from "@/components/features";
 import HowItWorks from "@/components/howItworks";
 import FAQ from '@/components/faq'
+import Goals from "@/components/goals";
 
 export default function Home() {
   return (

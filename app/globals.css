@@ -38,7 +38,7 @@ body{
   }
 }
 
-footer{
+/* footer{
   animation-name: come;
   animation-timeline: scroll(y);
   animation-timing-function: linear;
@@ -54,5 +54,59 @@ footer{
   to{
     bottom: 0px;
     scale: 1;
+  }
+} */
+
+/* .questions{
+  animation-timeline: view();
+  animation-name: growout;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+  animation-range: 0px 400px;
+}
+
+@keyframes growout{
+  from{
+    width: 80%;
+  }
+  to{
+    width: 100%;
+  }} */
+
+
+  @layer utilities {
+  .scroll-reveal {
+    /* Default state (Mobile): No animation, full opacity */
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Desktop Only: Apply the scroll animation */
+  @media (min-width: 768px) {
+    .scroll-reveal {
+      animation-timeline: view();
+      animation-name: grow-in;
+      animation-fill-mode: both;
+      /* Range: Starts animating when top of element enters bottom of screen */
+      animation-range: entry 0% cover 60%; 
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); /* smooth ease-out */
+    }
+  }
+}
+
+/* FIX FOR TEXT JUMPING:
+   We animate 'scale' and 'opacity' instead of 'width'.
+   This prevents the text from re-wrapping (reflow) during the animation.
+*/
+@keyframes grow-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(100px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
   }
 }

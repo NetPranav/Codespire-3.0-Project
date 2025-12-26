@@ -30,7 +30,7 @@ Any specific elements they mentioned (buttons, images, text sections)
 
 Special features or animations they requested
 
-Style preferences if mentioned
+Style preferences if mentioned but if not than use a black and white theme 
 
 Then include these CRITICAL instructions for the code generator:
 
