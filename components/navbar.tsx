@@ -115,7 +115,7 @@ export default function Navbar() {
               <span className="text-sm font-medium text-white hover:text-white transition-colors tracking-wide">
                 {item.toUpperCase()}
               </span>
-              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span>
             </div>
           ))}
         </div>
