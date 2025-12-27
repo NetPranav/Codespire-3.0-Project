@@ -1,7 +1,7 @@
 // Burhan------------------------------------------------------------------------------------------------------------------------------
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import * as Babel from "@babel/standalone";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,7 +16,7 @@ type Message = {
   text: string;
 };
 
-// --- DYNAMIC COMPONENT RENDERER (Unchanged Logic) ---
+// --- DYNAMIC COMPONENT RENDERER ---
 function DynamicComponent({ code }: { code: string }) {
   const [Component, setComponent] = useState<React.ComponentType | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -86,10 +86,8 @@ function DynamicComponent({ code }: { code: string }) {
   return <Component />;
 }
 
-// --- HELPER FUNCTIONS (Download, Extract) ---
+// --- HELPER FUNCTIONS ---
 const downloadCompFile = async () => {
-  // ... (Your existing download logic remains the same)
-  // For brevity, I'm assuming you keep the exact logic here.
   alert("Downloading functionality triggered"); 
 };
 
@@ -113,13 +111,14 @@ function extractCodeFromResponse(markdownText: string): string {
 }
 
 const saveCodeToFile = async (extractedCode: string, filename = "comp.tsx") => {
-    // ... (Your existing save logic)
-    return { success: true };
+  return { success: true };
 };
 
-
-// --- MAIN COMPONENT ---
-export default function AIWebsiteGenerator() {
+// --- CONTENT COMPONENT ---
+function AIWebsiteGeneratorContent() {
+  const searchParams = useSearchParams();
+  const promptFromUrl = searchParams.get("prompt") || "";
+  
   const [prompt, setPrompt] = useState("");
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [componentCode, setComponentCode] = useState<string>("");
@@ -127,26 +126,11 @@ export default function AIWebsiteGenerator() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isChatExpanded, setIsChatExpanded] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
-  const searchParams = useSearchParams();
-  const [promptFromUrl, setPromptFromUrl] = useState<string>("");
   const chatEndRef = useRef<HTMLDivElement>(null);
-  // const promptFromUrl = searchParams.get("prompt") || "";
-  
 
-  // useEffect(() => {
-  //   if(promptFromUrl) setPrompt(promptFromUrl);
-  // }, [promptFromUrl]);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const urlPrompt = params.get("prompt") || "";
-      setPromptFromUrl(urlPrompt);
-      if (urlPrompt) {
-        setPrompt(urlPrompt);
-      }
-    }
-  }, []);
-
+    if(promptFromUrl) setPrompt(promptFromUrl);
+  }, [promptFromUrl]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -382,11 +366,41 @@ export default function AIWebsiteGenerator() {
             </p>
         </div>
       </footer>
-
     </div>
   );
 }
 
+// --- MAIN EXPORT WITH SUSPENSE ---
+export default function AIWebsiteGenerator() {
+  return (
+    <Suspense 
+      fallback={
+        <div className="flex flex-col h-screen w-full bg-[#050505] text-white font-sans overflow-hidden">
+          <header className="flex justify-between items-center px-6 py-4 border-b border-white/10 bg-black/50 backdrop-blur-md">
+            <div className="flex items-center gap-4">
+              <div className="p-2 rounded-full bg-white/5 animate-pulse">
+                <ChevronLeft size={20} className="opacity-0" />
+              </div>
+              <div className="h-6 w-[1px] bg-white/10"></div>
+              <div className="w-32 h-8 bg-white/10 rounded animate-pulse"></div>
+            </div>
+            <div className="w-8 h-8 rounded-full bg-white/10 animate-pulse"></div>
+          </header>
+          
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-12 h-12 border-4 border-gray-200 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-gray-400">Initializing template generator...</p>
+              <p className="text-gray-600 text-sm mt-2">Loading parameters</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <AIWebsiteGeneratorContent />
+    </Suspense>
+  );
+}
 
 
 
