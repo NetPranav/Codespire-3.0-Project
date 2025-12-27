@@ -33,6 +33,8 @@ YOUR RESPONSIBILITIES:
 
 6. Follow user requirements precisely
 
+7. Use Image from online 
+
 STRICT EXECUTION:
 
 ALWAYS parse and use the specifications provided from Model 1

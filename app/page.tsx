@@ -6,6 +6,7 @@ import AnimatedSections from "@/components/features";
 import HowItWorks from "@/components/howItworks";
 import FAQ from '@/components/faq'
 import Goals from "@/components/goals";
+import Comp from "@/components/Temp-ad";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Hero />
       <Carousal />
       <HowItWorks />
+      <Comp />
       <FAQ/>
       {/* <div className="">
         <AnimatedSections/>

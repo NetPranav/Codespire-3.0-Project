@@ -164,7 +164,7 @@ function AIWebsiteGeneratorContent() {
         if (codeBlockMatch && codeBlockMatch[1]) {
           const extractedCode = codeBlockMatch[1].trim();
           
-          const secondRes = await fetch("./api/Gemini-Gen", {
+          const secondRes = await fetch("./api/Gemini-Gen/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ code: extractedCode }),
@@ -318,7 +318,8 @@ function AIWebsiteGeneratorContent() {
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50">
                                         <div className="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin mb-4"></div>
                                         <p className="text-gray-500 font-mono text-xs uppercase tracking-widest">Generating Code...</p>
-                                    </div>
+                                    </div> 
+            
                                 )}
                              </div>
                         </div>
