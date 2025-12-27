@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "WebGen",
+  title: "LazyLayout",
   description: "We generate templates for banana",
 };
 

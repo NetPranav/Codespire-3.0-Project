@@ -5,7 +5,7 @@ const Pricing = () => {
   const [billing, setBilling] = useState("yearly");
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-5">
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-6">
       {/* --- LOGO --- */}
       <div className="flex items-center z-50">
         <img
@@ -48,7 +48,7 @@ const Pricing = () => {
       </div>
 
       {/* Cards */}
-      <div className=" w-full flex justify-center scale-80">
+      <div className=" w-full flex justify-center -mt-7 -mb-18 scale-80">
         <div className="grid gap-12 grid-cols-1 lg:grid-cols-2 max-w-5xl w-full">
           {/* Standard */}
           <div className="relative rounded-3xl p-10 sm:p-12 min-h-[580px] bg-gradient-to-b from-purple-900/30 to-black border border-gray-800">
