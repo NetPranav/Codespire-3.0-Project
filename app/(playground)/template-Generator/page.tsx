@@ -1,3 +1,4 @@
+// Burhan------------------------------------------------------------------------------------------------------------------------------
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -127,12 +128,25 @@ export default function AIWebsiteGenerator() {
   const [isChatExpanded, setIsChatExpanded] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
   const searchParams = useSearchParams();
-  const promptFromUrl = searchParams.get("prompt") || "";
+  const [promptFromUrl, setPromptFromUrl] = useState<string>("");
   const chatEndRef = useRef<HTMLDivElement>(null);
+  // const promptFromUrl = searchParams.get("prompt") || "";
+  
 
+  // useEffect(() => {
+  //   if(promptFromUrl) setPrompt(promptFromUrl);
+  // }, [promptFromUrl]);
   useEffect(() => {
-    if(promptFromUrl) setPrompt(promptFromUrl);
-  }, [promptFromUrl]);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlPrompt = params.get("prompt") || "";
+      setPromptFromUrl(urlPrompt);
+      if (urlPrompt) {
+        setPrompt(urlPrompt);
+      }
+    }
+  }, []);
+
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -372,6 +386,31 @@ export default function AIWebsiteGenerator() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // "use client";
@@ -981,7 +1020,7 @@ export default function AIWebsiteGenerator() {
 //             <input
 //               type="text"
 //               value={prompt}
-//               onChange={handlePromptChange}
+//               onChange={(e)=> setPrompt(e.target.value)}
 //               placeholder="Ask Coffee&Code AI..."
 //               className="w-full pl-12 pr-32 py-4 bg-white text-gray-900 placeholder-gray-400 focus:outline-none text-base"
 //               disabled={isGenerating}
