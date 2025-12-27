@@ -11,12 +11,14 @@ export default function Hero() {
   
   const handleGenerate = () => {
     if (text.trim()) {
-      router.push(`/template-Generator?prompt=${encodeURIComponent(text)}`);
+      const encodedPrompt = encodeURIComponent(text.trim());
+      router.push(`/template-Generator?prompt=${encodedPrompt}`);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && text.trim()) {
+      e.preventDefault(); // Add this
       handleGenerate();
     }
   };
