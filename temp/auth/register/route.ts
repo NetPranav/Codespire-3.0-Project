@@ -6,40 +6,44 @@ import ErrorReporter from "@/validator/ErrorReporter";
 import bcrypt from "bcryptjs";
 import { User } from "@/model/user";
 // for db connection
-connect();
-
+// connect();
 export async function POST(req: NextRequest) {
   try {
+    await connect();
+
     const body = await req.json();
     const validator = vine.compile(registerSchema);
     validator.errorReporter = () => new ErrorReporter();
     const output = await validator.validate(body);
 
-    // check if user already exists
-    const user = await User.findOne({ email: output.email });
-    if (user) {
+    const existing = await User.findOne({ email: output.email });
+    if (existing) {
       return NextResponse.json(
-        {
-          status: 400,
-          errors: {
-            email: "User with this email already exists",
-          },
-        },
-        { status: 200 }
+        { errors: { email: "User already exists" } },
+        { status: 409 }
       );
-    } else {
-      // Enctrypting password
-      const salt = bcrypt.genSaltSync(10);
-      output.password = bcrypt.hashSync(output.password, salt);
-      await User.create(output);
-      return NextResponse.json({status:200, message:"Account Created Successfully"}, { status: 200 });
     }
+
+    const salt = await bcrypt.genSalt(10);
+    output.password = await bcrypt.hash(output.password, salt);
+
+    await User.create(output);
+
+    return NextResponse.json(
+      { message: "Account created successfully" },
+      { status: 200 }
+    );
   } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
       return NextResponse.json(
-        { status: 400, errors: error.messages },
-        { status: 200 }
+        { errors: error.messages },
+        { status: 400 }
       );
     }
+
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
