@@ -82,9 +82,9 @@ import { connect } from "@/DataBase/mongo.config";
 import { User } from "@/model/user";
 
 export const authOptions: AuthOptions = {
-  pages: {
-    signIn: "/login",
-  },
+  // pages: {
+  //   signIn: "/login",
+  // },
 
   providers: [
     CredentialsProvider({
