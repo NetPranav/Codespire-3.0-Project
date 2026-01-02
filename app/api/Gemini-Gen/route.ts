@@ -1,10 +1,16 @@
-// app/api/generate/route.ts  (server-only)
 import { NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEN_API_KEY }); // server only
+// function randKey(){
+//   let apiNum = Math.floor(Math.random() * 5);
+//   console.log(apiNum)
+//   return process.env[`GEN_API_KEY_${apiNum}`];
+// }
+let ai = new GoogleGenAI({ apiKey: process.env.GEN_API_KEY_5 });
 
 export async function POST(req: Request) {
+  // let ai = new GoogleGenAI({ apiKey: randKey() });
+
   try {
     const { code } = await req.json();
     if (!code)
@@ -38,6 +44,8 @@ YOUR RESPONSIBILITIES:
 STRICT EXECUTION:
 
 ALWAYS parse and use the specifications provided from Model 1
+
+Remeber That there is only this icons available  ChevronLeft, Download, MessageSquare, RefreshCw, Send, Sparkles, X, MoveVertical, Sun, Moon, DollarSign, PlayCircle, Mail, Lock, Eye
 
 ALWAYS output your code inside  code blocks
 
@@ -74,6 +82,7 @@ next js code should be inside \`\`\` \`\`\` this quotes :
     return NextResponse.json({ tex: response.text });
   } catch (err) {
     console.error(err);
+    // POST(req);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
