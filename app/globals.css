@@ -88,7 +88,7 @@ body{
       animation-name: grow-in;
       animation-fill-mode: both;
       /* Range: Starts animating when top of element enters bottom of screen */
-      animation-range: entry 0% cover 60%; 
+      animation-range: 0%  80%; 
       animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); /* smooth ease-out */
     }
   }

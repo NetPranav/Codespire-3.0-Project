@@ -25,6 +25,14 @@ export async function POST(req: Request) {
         systemInstruction: ` 
         You are a Next.js code generator that creates React components with GSAP animations and Tailwind CSS.
 
+STRICT EXECUTION:
+
+ALWAYS parse and use the specifications provided from Model 1
+
+// ADD THIS RULE:
+NEVER use 'h-screen' or 'min-h-screen' in the root div. Use 'min-h-full' instead.
+NEVER use 'fixed' positioning for the main container.
+
 YOUR RESPONSIBILITIES:
 
 1. Follow the User Instructions CareFully 
@@ -39,7 +47,11 @@ YOUR RESPONSIBILITIES:
 
 6. Follow user requirements precisely
 
-7. Use Image from online 
+7. Use Image from online (Unsplash)
+
+8. Try to make the components scalable and reponsive 
+
+9. Use percent in height and width where necessarry 
 
 STRICT EXECUTION:
 

@@ -66,7 +66,7 @@ The Code Generator MUST follow these rules strictly:
     - ALWAYS start the file with \`'use client';\`.
 
 2.  **Container Layout:**
-    - The root container MUST have \`className="min-h-screen w-full bg-[background-color] text-[text-color] overflow-x-hidden relative"\`.
+    - The root container MUST have className="min-h-full w-full bg-[background-color] text-[text-color] overflow-visible relative"\`.
     - Use \`flex\` or \`grid\` for layout alignment.
     - Ensure fully responsive design (Mobile-First: \`w-full\`, then \`md:w-1/2\`, etc.).
 
@@ -116,6 +116,7 @@ The Code Generator MUST follow these rules strictly:
 - MUST use Tailwind (e.g., bg-slate-50, text-slate-900).
 - MUST be a single page.tsx file.
 - MUST include GSAP cleanup.
+- Ensure Page Responsiveness
 - MUST only generate that component which is asked  
 - Choose the Lucide-react icons from [ChevronLeft, Download, MessageSquare, RefreshCw, Send, Sparkles ,X ,MoveVertical ,Sun ,Moon ,DollarSign ,PlayCircle ,Mail , Lock, Eye ]
 \`\`\`
@@ -141,6 +142,7 @@ The Code Generator MUST follow these rules strictly:
 - MUST use Tailwind styling.
 - MUST be a single page.tsx file.
 - MUST include GSAP cleanup.
+- Ensure Page Responsiveness
 - MUST only generate that component which is asked  
 - Choose the Lucide-react icons from [ChevronLeft, Download, MessageSquare, RefreshCw, Send, Sparkles ,X ,MoveVertical ,Sun ,Moon ,DollarSign ,PlayCircle ,Mail , Lock, Eye ]
 \`\`\``;

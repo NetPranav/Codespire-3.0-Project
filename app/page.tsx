@@ -25,7 +25,7 @@ export default function Home() {
       <Hero />
       <Carousal />
       <HowItWorks />
-      <Comp />
+      {/* <Comp /> */}
       <FAQ/>
       {/* <div className="">
         <AnimatedSections/>
